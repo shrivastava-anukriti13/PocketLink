@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import './App.css'
 import LandingPage from './components/LandingPage'
 import AboutPage from './components/AboutPage'
@@ -11,14 +11,14 @@ function App() {
   return (
     <>
       <ContextProvider>
-        <BrowserRouter>
+        <Router>
           <Navbar />
           <Routes>
             <Route path='/' element={<LandingPage />} />
             <Route path='/about' element={<AboutPage />} />
           </Routes>
           <Footer />
-        </BrowserRouter>
+        </Router>
       </ContextProvider>
     </>
   )
