@@ -45,7 +45,7 @@ const LandingPage = () => {
                             transition={{ duration: 0.8 }}
                             onClick={dashBoardNavigateHandler}
                             style={{ backgroundImage: "linear-gradient(to right, #3b82f6, #9333ea)" }}
-                            className="w-40 text-white rounded-md  py-2"
+                            className="w-40 text-white rounded-md py-2"
                         >
                             Manage Links
                         </motion.button>
