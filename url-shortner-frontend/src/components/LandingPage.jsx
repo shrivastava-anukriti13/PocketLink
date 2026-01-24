@@ -2,12 +2,15 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
 import Card from "./Card";
+import { useStoreContext } from "../contextApi/ContextApi";
 
 let desc =
     "Generate short, memorable links with ease using PocketLink's intuitive interface. Share URLs effortlessly across platforms. Optimize your sharing strategy with PocketLink. Track clicks and manage your links seamlessly to enhance your online presence. Generate short, memorable links with ease using PocketLink's intuitive interface. Share URLs effortlessly across platforms.";
 
 const LandingPage = () => {
     const navigate = useNavigate();
+    const { token } = useStoreContext();
+    console.log("TOKEN FROM LANDING PAGE: " + token);
 
     const dashBoardNavigateHandler = () => {
 
