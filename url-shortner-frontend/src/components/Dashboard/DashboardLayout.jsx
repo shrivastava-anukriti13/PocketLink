@@ -49,7 +49,8 @@ const DashboardLayout = () => {
                     </div>
                     <div className='py-5 sm:text-end text-center'>
                         <button
-                            className='bg-custom-gradient px-4 py-2 rounded-md text-white'
+                            className='px-4 py-2 rounded-md text-white'
+                            style={{ backgroundImage: "linear-gradient(to right, #3b82f6, #9333ea)" }}
                             onClick={() => setShortenPopUp(true)}>
                             Create a New Short URL
                         </button>
