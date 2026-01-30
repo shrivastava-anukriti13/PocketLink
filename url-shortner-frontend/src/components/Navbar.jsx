@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { IoIosMenu } from "react-icons/io";
 import { RxCross2 } from "react-icons/rx";
 import Logo from "./Logo";
+import { useStoreContext } from "../contextApi/ContextApi";
 
 const Navbar = () => {
+    const navigate = useNavigate();
+    const { token, setToken } = useStoreContext();
     const path = useLocation().pathname;
     const [navbarOpen, setNavbarOpen] = useState(false);
     const [isDesktop, setIsDesktop] = useState(() =>
@@ -23,6 +26,12 @@ const Navbar = () => {
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
     }, []);
+
+    const onLogOutHandler = () => {
+        setToken(null);
+        localStorage.removeItem("JWT_TOKEN");
+        navigate("/login");
+    };
 
     return (
         <nav className=" sticky top-0 z-50 shadow-lg" style={{ backgroundImage: "linear-gradient(to right, #3b82f6, #9333ea)" }}>
@@ -64,31 +73,34 @@ const Navbar = () => {
                                 )}
                             </Link>
 
-
-                            <Link
-                                to="/dashboard"
-                                className={`relative px-3 py-2 text-base font-medium transition-all duration-300 ${path === "/dashboard"
-                                    ? "text-yellow-300 font-semibold"
-                                    : "text-gray-100 hover:text-yellow-300 hover:scale-105"
-                                    }`}
-                            >
-                                Dashboard
-                                {path === "/dashboard" && (
-                                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full shadow-md shadow-yellow-400/50"></div>
-                                )}
-                            </Link>
+                            {token && (
+                                <Link
+                                    to="/dashboard"
+                                    className={`relative px-3 py-2 text-base font-medium transition-all duration-300 ${path === "/about"
+                                        ? "text-yellow-300 font-semibold"
+                                        : "text-gray-100 hover:text-yellow-300 hover:scale-105"
+                                        }`}
+                                >
+                                    Dashboard
+                                    {path === "/dashboard" && (
+                                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full shadow-md shadow-yellow-400/50"></div>
+                                    )}
+                                </Link>
+                            )}
 
                         </div>
                     )}
 
                     {isDesktop && (
                         <div className="flex items-center space-x-4">
-                            <Link
-                                to="/register"
-                                className="inline-flex items-center px-6 py-2.5 border border-emerald-400 text-sm font-medium rounded-xl text-emerald-100 bg-emerald-800/50 backdrop-blur-sm hover:bg-emerald-700/50 hover:text-white hover:border-emerald-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-                            >
-                                Sign Up
-                            </Link>
+                            {!token && (
+                                <Link
+                                    to="/register"
+                                    className="inline-flex items-center px-6 py-2.5 border border-emerald-400 text-sm font-medium rounded-xl text-emerald-100 bg-emerald-800/50 backdrop-blur-sm hover:bg-emerald-700/50 hover:text-white hover:border-emerald-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                                >
+                                    Sign Up
+                                </Link>
+                            )}
                             <>
                                 <div className="flex items-center space-x-2 text-emerald-100">
                                     <span className="text-sm font-medium">Hello,</span>
@@ -96,11 +108,14 @@ const Navbar = () => {
                                         {"User"}
                                     </span>
                                 </div>
-                                <button
-                                    className="inline-flex items-center px-6 py-2.5 border border-transparent text-sm font-medium rounded-xl text-white bg-gradient-to-r from-orange-500 via-red-500 to-pink-600 hover:from-orange-600 hover:via-red-600 hover:to-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-orange-500/25 transform hover:-translate-y-0.5"
-                                >
-                                    Log Out
-                                </button>
+                                {token && (
+                                    <button
+                                        onClick={onLogOutHandler}
+                                        className="inline-flex items-center px-6 py-2.5 border border-transparent text-sm font-medium rounded-xl text-white from-orange-500 via-red-500 to-pink-600 hover:from-orange-600 hover:via-red-600 hover:to-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-orange-500/25 transform hover:-translate-y-0.5 cursor-pointer"
+                                    >
+                                        Log Out
+                                    </button>
+                                )}
                             </>
                         </div>
                     )}
@@ -176,8 +191,9 @@ const Navbar = () => {
                             <button
                                 onClick={() => {
                                     setNavbarOpen(false);
+                                    onLogOutHandler();
                                 }}
-                                className="block w-full text-center px-4 py-3 text-sm font-medium text-white bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 rounded-lg transition-all duration-300 shadow-lg"
+                                className="block w-full text-center px-4 py-3 text-sm font-medium text-white bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 rounded-lg transition-all duration-300 shadow-lg cursor-pointer"
                             >
                                 Log Out
                             </button>
