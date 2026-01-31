@@ -119,7 +119,7 @@ const ShortenItem = ({ originalUrl, shortUrl, clickCount, createdDate }) => {
                 <div className="flex  flex-1  sm:justify-end items-center gap-4">
                     <div
                         onClick={handleCopy}
-                        className="flex cursor-pointer gap-1 items-center bg-green-600 py-2 font-semibold shadow-md shadow-slate-500 px-6 rounded-md text-white "
+                        className="flex cursor-pointer gap-1 items-center bg-green-600 hover:bg-green-700 py-2 font-semibold shadow-md shadow-slate-500 px-6 rounded-md text-white transition-colors duration-200"
                     >
                         <button className="">{isCopied ? "Copied" : "Copy"}</button>
                         {isCopied ? (
@@ -131,7 +131,7 @@ const ShortenItem = ({ originalUrl, shortUrl, clickCount, createdDate }) => {
 
                     <div
                         onClick={() => analyticsHandler(shortUrl)}
-                        className="flex cursor-pointer gap-1 items-center bg-rose-700 py-2 font-semibold shadow-md shadow-slate-500 px-6 rounded-md text-white "
+                        className="flex cursor-pointer gap-1 items-center bg-yellow-600 hover:bg-yellow-700 py-2 font-semibold shadow-md shadow-slate-500 px-6 rounded-md text-white transition-colors duration-200"
                     >
                         <button>Analytics</button>
                         <MdAnalytics className="text-md" />
