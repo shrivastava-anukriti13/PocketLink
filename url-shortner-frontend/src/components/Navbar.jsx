@@ -147,8 +147,8 @@ const Navbar = () => {
                     <Link
                         to="/"
                         className={`block px-3 py-2.5 text-base font-medium rounded-lg transition-all duration-300 ${path === "/"
-                            ? "text-yellow-300 bg-yellow-500/10 border border-yellow-500/20"
-                            : "text-gray-100 hover:text-yellow-300 hover:bg-emerald-800/50"
+                            ? "text-pink-600 bg-pink-100 border border-pink-300"
+                            : "text-gray-900 hover:text-pink-600 hover:bg-pink-50"
                             }`}
                         onClick={() => setNavbarOpen(false)}
                     >
@@ -158,51 +158,49 @@ const Navbar = () => {
                     <Link
                         to="/about"
                         className={`block px-3 py-2.5 text-base font-medium rounded-lg transition-all duration-300 ${path === "/about"
-                            ? "text-yellow-300 bg-yellow-500/10 border border-yellow-500/20"
-                            : "text-gray-100 hover:text-yellow-300 hover:bg-emerald-800/50"
+                            ? "text-pink-600 bg-pink-100 border border-pink-300"
+                            : "text-gray-900 hover:text-pink-600 hover:bg-pink-50"
                             }`}
                         onClick={() => setNavbarOpen(false)}
                     >
                         About
                     </Link>
 
-                    <Link
-                        to="/dashboard"
-                        className={`block px-3 py-2.5 text-base font-medium rounded-lg transition-all duration-300 ${path === "/dashboard"
-                            ? "text-yellow-300 bg-yellow-500/10 border border-yellow-500/20"
-                            : "text-gray-100 hover:text-yellow-300 hover:bg-emerald-800/50"
-                            }`}
-                        onClick={() => setNavbarOpen(false)}
-                    >
-                        Dashboard
-                    </Link>
-
-                    <div className="pt-3 border-t border-gray-200">
+                    {token && (
                         <Link
-                            to="/register"
-                            className="block w-full text-center px-4 py-3 text-sm font-medium text-pink-600 bg-pink-50 border border-pink-200 hover:bg-pink-100 hover:text-pink-700 rounded-lg transition-all duration-300"
+                            to="/dashboard"
+                            className={`block px-3 py-2.5 text-base font-medium rounded-lg transition-all duration-300 ${path === "/dashboard"
+                                ? "text-pink-600 bg-pink-100 border border-pink-300"
+                                : "text-gray-900 hover:text-pink-600 hover:bg-pink-50"
+                                }`}
                             onClick={() => setNavbarOpen(false)}
                         >
-                            Sign Up
+                            Dashboard
                         </Link>
-                        <div className="space-y-3">
-                            <div className="px-3 py-2 text-center">
-                                <span className="text-gray-800 text-sm">Hello, </span>
-                                <span className="text-pink-600 font-semibold text-sm">
-                                    {"User"}
-                                </span>
-                            </div>
+                    )}
 
-                            <button
-                                onClick={() => {
-                                    setNavbarOpen(false);
-                                    onLogOutHandler();
-                                }}
-                                className="block w-full text-center px-4 py-3 text-sm font-medium text-white  from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 rounded-lg transition-all duration-300 shadow-lg cursor-pointer"
+                    <div className="pt-3 border-t border-gray-200">
+                        {!token ? (
+                            <Link
+                                to="/register"
+                                className="block w-full text-center px-4 py-3 text-sm font-medium text-pink-600 bg-pink-50 border border-pink-200 hover:bg-pink-100 hover:text-pink-700 rounded-lg transition-all duration-300"
+                                onClick={() => setNavbarOpen(false)}
                             >
-                                Log Out
-                            </button>
-                        </div>
+                                Sign Up
+                            </Link>
+                        ) : (
+                            <div className="space-y-3">
+                                <button
+                                    onClick={() => {
+                                        setNavbarOpen(false);
+                                        onLogOutHandler();
+                                    }}
+                                    className="block w-full text-center px-4 py-3 text-sm font-medium text-white bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 rounded-lg transition-all duration-300 shadow-lg cursor-pointer"
+                                >
+                                    Log Out
+                                </button>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

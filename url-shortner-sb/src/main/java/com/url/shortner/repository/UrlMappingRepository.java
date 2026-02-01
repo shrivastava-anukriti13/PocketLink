@@ -7,9 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
-public interface UrlMappingRepository extends JpaRepository<UrlMapping, Long> {
+public interface UrlMappingRepository extends JpaRepository<UrlMapping, UUID> {
     UrlMapping findByShortUrl(String shortUrl);
     List<UrlMapping> findByUser(User user);
 }

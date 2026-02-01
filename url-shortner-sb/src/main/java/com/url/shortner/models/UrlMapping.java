@@ -2,16 +2,20 @@ package com.url.shortner.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Data
 public class UrlMapping {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @UuidGenerator
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id; 
+    
     private String originalUrl;
     private String shortUrl;
     private int clickCount = 0;
